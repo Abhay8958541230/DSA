@@ -1,24 +1,23 @@
 class Solution {
 public:
+    bool check(int i, string &s) {
+        if (i >= s.length() / 2)
+            return true;
+
+        if (s[i] != s[s.length() - i - 1])
+            return false;
+
+        return check(i + 1, s);
+    }
+
     bool isPalindrome(string s) {
-        int left = 0;
-        int right = s.length() - 1;
+        string t;
 
-        while (left < right) {
-            // Skip non-alphanumeric characters
-            while (left < right && !isalnum(s[left])) left++;
-            while (left < right && !isalnum(s[right])) right--;
-
-            // Compare lowercase versions
-            if (tolower(s[left]) != tolower(s[right])) {
-                return false;
-            }
-
-            left++;
-            right--;
+        for (char c : s) {
+            if (isalnum(c))
+                t += tolower(c);
         }
 
-        return true;
+        return check(0, t);
     }
 };
- 
